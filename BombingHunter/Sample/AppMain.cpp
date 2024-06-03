@@ -3,8 +3,11 @@
 #include"Scene/Scene.h"
 
 //メイン関数（プログラムはここから始まります）
-int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPSTR lpCmdLine, _In_ int nShouwCmd)
+int WINAPI WinMain(_In_ HINSTANCE hInstance,
+	_In_opt_ HINSTANCE hPrevInstance,
+	_In_ LPSTR lpCmdLine,
+	_In_ int nShowCmd
+)
 
 {
 	//Window モードで起動
@@ -24,7 +27,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	Scene* scene = new Scene();     //シーン情報
 	int result = 0;                 //終了状況情報
 
-	//描画先を裏画面から始めるように指定する
+
+	//
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	try
@@ -34,7 +38,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		scene->Initialize();
 
 		//メインループ（ウィンドウの異常発生orESCキーが押されたらループ終了）
-		while (ProcessMessage()!=-1&&CheckHitKey(KEY_INPUT_ESCAPE)!=TRUE)
+		//
+		while(ProcessMessage()!=-1&&
+			InputControl::GetKeyUp(KEY_INPUT_ESCAPE)==false)
 		{
 			//入力待機の更新
 			InputControl::Update();

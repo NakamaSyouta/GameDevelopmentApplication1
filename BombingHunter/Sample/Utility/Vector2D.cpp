@@ -26,6 +26,7 @@ const Vector2D Vector2D::operator+(const Vector2D& location)const
 
 	result.x = this->x + location.x;
 	result.y = this->y + location.y;
+	return result;
 }
 Vector2D& Vector2D::operator+=(const Vector2D& location)
 {
@@ -39,6 +40,8 @@ const Vector2D Vector2D::operator-(const Vector2D& location)const
 
 	result.x = this->x - location.x;
 	result.y = this->y - location.y;
+
+	return result;
 }
 Vector2D& Vector2D::operator-=(const Vector2D& location)
 {
@@ -86,4 +89,23 @@ const Vector2D Vector2D::operator*(const Vector2D& location)const
 	 }
 	 return Vector2D(this->x / location.x, this->y / location.y);
 	 
+ }
+ Vector2D& Vector2D::operator/=(const Vector2D&location)
+ {
+	 if ((fabsf(location.x) < 1e-6f)||(fabsf(location.y)<1e-6f))
+	 {
+		 this->x = 0.0f;
+		 this->y = 0.0f;
+	 }
+	 else
+	 {
+		 this->x /= location.x;
+		 this->y /= location.y;
+	 }
+	 return*this;
+ }
+ void Vector2D::ToInt(int* x, int* y)const
+ {
+	 *x = static_cast<int>(this->x);
+	 *y = static_cast<int>(this->y);
  }
