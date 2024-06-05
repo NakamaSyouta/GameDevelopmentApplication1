@@ -20,6 +20,8 @@ Vector2D& Vector2D::operator=(const Vector2D& location)
 
 	return *this;
 }
+
+
 const Vector2D Vector2D::operator+(const Vector2D& location)const
 {
 	Vector2D result = Vector2D(0.0f);
@@ -34,6 +36,8 @@ Vector2D& Vector2D::operator+=(const Vector2D& location)
 	this->y += location.y;
 	return *this;
 }
+
+
 const Vector2D Vector2D::operator-(const Vector2D& location)const
 {
 	Vector2D result = Vector2D(0.0f);
@@ -49,6 +53,8 @@ Vector2D& Vector2D::operator-=(const Vector2D& location)
 	this->y -= location.y;
 	return *this;
 }
+
+
 const Vector2D Vector2D::operator*(const float& scalar)const
 {
 	Vector2D result = Vector2D(0.0f);
@@ -73,6 +79,8 @@ const Vector2D Vector2D::operator*(const Vector2D& location)const
 	 this->y * scalar;
 	 return*this;
 }
+
+
  const Vector2D Vector2D::operator/(const float& scalar)const
  {
 	 if (fabsf(scalar) < 1e-6f)
@@ -104,7 +112,7 @@ const Vector2D Vector2D::operator*(const Vector2D& location)const
 	 }
 	 return*this;
  }
- void Vector2D::ToInt(int* x, int* y)const
+ void Vector2D::ToInt(int*x,int*y)
  {
 	 *x = static_cast<int>(this->x);
 	 *y = static_cast<int>(this->y);

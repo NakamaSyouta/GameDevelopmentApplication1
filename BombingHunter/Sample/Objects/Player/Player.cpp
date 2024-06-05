@@ -28,7 +28,7 @@ void Player::Initialize()
 	radian = 0.0f;
 
 	//
-	box_size = Vector2D(64.0f);
+	box_size = 64.0;
 
 	//
 	image = animation[0];

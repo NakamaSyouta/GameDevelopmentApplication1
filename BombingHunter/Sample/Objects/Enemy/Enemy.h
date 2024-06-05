@@ -2,19 +2,17 @@
 
 #include "../GameObject.h"
 
-class Player :public GameObject
+class Enemy:public GameObject
 {
 private:
-	int animation[2];//アニメーション画像
-	int animation_count;//アニメーション時間
-	int flip_flag;//反転フラグ
-
+	int animation[2];               //
+	int animation_count;        //
+	Vector2D direction;     //  
 
 public:
-	Player();
-	~Player();
+	Enemy();
+	~ Enemy();
 
-	//
 	virtual void Initialize()override;
 	//
 	virtual void Update()override;
@@ -32,3 +30,4 @@ private:
 	//
 	void AnimationControl();
 };
+
