@@ -1,5 +1,5 @@
 #include "InputConttrol.h"
-#include "DxLib.h"
+#include"DxLib.h"
 
 char InputControl::now_key[D_KEYCODE_MAX] = {};
 char InputControl::old_key[D_KEYCODE_MAX] = {};
@@ -29,3 +29,4 @@ bool InputControl::GetKeyUp(int key_code)
 bool InputControl::CheckKeyCodeRange(int key_code)
 {
 	return (0 <= key_code && key_code < D_KEYCODE_MAX);
+}

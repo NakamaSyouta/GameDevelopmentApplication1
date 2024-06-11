@@ -5,9 +5,9 @@
 class Player :public GameObject
 {
 private:
-	int animation[2];//
-	int animation_count;//
-	int flip_flag;//
+	int animation[2];//アニメーション画像
+	int animation_count;//アニメーション時間
+	int flip_flag;//反転フラグ
 
 
 public:

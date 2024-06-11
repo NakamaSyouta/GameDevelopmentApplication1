@@ -8,6 +8,8 @@ class Scene
 private:
 	std::vector<GameObject*>objects;
 
+	int back_graound;
+
 public:
 	Scene();
 	~Scene();
