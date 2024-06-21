@@ -30,10 +30,10 @@ void  GameObject::Draw()const
 {
 	//“–‚½‚è”»’è‚Ì‰ÂŽ‹‰»
 #ifdef D_PIVOT_CENTER
-	Vector2D tl = location - (box_size / 2.0f);
-	Vector2D br = location + (box_size / 2.0f);
+	//Vector2D tl = location - (box_size / 2.0f);
+	//Vector2D br = location + (box_size / 2.0f);
 
-	DrawBoxAA(tl.x, tl.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
+	//DrawBoxAA(tl.x, tl.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
 
 #else
 	Vector2D tl = location;

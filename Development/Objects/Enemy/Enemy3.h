@@ -1,20 +1,16 @@
 #pragma once
-
 #include "../GameObject.h"
-
-class Player :public GameObject
+class Enemy3 :public GameObject
 {
 private:
-	int animation[2];//アニメーション画像
-	int animation_count;//アニメーション時間
-	int flip_flag;//反転フラグ
-
+	int animation[2];               //
+	int animation_count;        //
+	Vector2D direction;     //  進行方向
 
 public:
-	Player();
-	~Player();
+	Enemy3();
+	~Enemy3();
 
-	//
 	virtual void Initialize()override;
 	//
 	virtual void Update()override;
@@ -26,11 +22,10 @@ public:
 	//
 	virtual void OnHitCollision(GameObject* hit_object)override;
 
-	
-
 private:
 	//
 	void Movement();
 	//
 	void AnimationControl();
 };
+

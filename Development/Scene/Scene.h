@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../Objects/GameObject.h"
+#include"../Objects/Player/Player.h"
 #include  <vector>
 
 class Scene
@@ -9,6 +10,7 @@ private:
 	std::vector<GameObject*>objects;
 
 	int background;
+	
 
 public:
 	Scene();
@@ -18,6 +20,9 @@ public:
 	void Update();
 	void Draw()const;
 	void Finalize();
+	Player* p;
+	
+
 
 private:
 	//

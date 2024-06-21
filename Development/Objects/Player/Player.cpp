@@ -19,11 +19,13 @@ void Player::Initialize()
 	animation[0] = LoadGraph("Resource/Images/Tri-pilot/1.png");
 	animation[1] = LoadGraph("Resource/Images/Tri-pilot/2.png");
 
+
 	//エラーチャック
 	if (animation[0] == -1 || animation[1] == -1)
 	{
 		throw("鳥パイロットの画像がありません`n");
 	}
+
 	//向き
 	radian = 0.0f;
 
@@ -32,6 +34,7 @@ void Player::Initialize()
 
 	//初期がそう設定
 	image = animation[0];
+
 
 }
 //
@@ -48,15 +51,16 @@ void Player::Update()
 void Player::Draw()const
 {
 	//プレイヤー画像の描画
-	DrawRotaGraph(location.x, location.y, 1.0, radian, image, image, TRUE, flip_flag);
+	DrawRotaGraph(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+	
 
 	//デバック用
 #if _DEBUG
 	//
-	Vector2D ul = location - (box_size / 2.0f);
-	Vector2D br = location + (box_size / 2.0f);
+	//Vector2D ul = location - (box_size / 2.0f);
+	//Vector2D br = location + (box_size / 2.0f);
 
-	DrawBoxAA(ul.x, ul.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
+	//DrawBoxAA(ul.x, ul.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
 #endif 
 }
 //終了処理
@@ -80,12 +84,12 @@ void Player::Movement()
 	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
 		velocity.x += -1.0f;
-		flip_flag = TRUE;
+		flip_flag =TRUE;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
 		velocity.x += 1.0f;
-		flip_flag = FALSE;
+		flip_flag =  FALSE;
 	}
 	else
 	{

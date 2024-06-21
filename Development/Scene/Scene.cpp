@@ -1,6 +1,9 @@
 #include "Scene.h"
 #include"../Objects/Player/Player.h"
 #include"../Objects/Enemy/Enemy.h"
+#include"../Objects/Enemy/Enemy2.h"
+#include"../Objects/Enemy/Enemy3.h"
+#include"../Objects/bakudan/bakudan.h"
 #include"../Utility/InputConttrol.h"
 #include"DxLib.h"
 
@@ -9,7 +12,6 @@
 //コンストラクタ
 Scene::Scene() :objects()
 {
-
 }
 
 Scene::~Scene()
@@ -21,7 +23,7 @@ Scene::~Scene()
 void Scene::Initialize()
 {
 	//プレイヤーを生成する
-	CreateObject<Player>(Vector2D(320.0f, 240.0f));
+	CreateObject<Player>(Vector2D(320.0f,90.0f));
 
 
 
@@ -58,7 +60,19 @@ void Scene::Update()
 	{
 		CreateObject<Enemy>(Vector2D(100.0f, 400.0f));
 	}
-
+	if (InputControl::GetKeyDown(KEY_INPUT_A))
+	{
+		CreateObject<Enemy2>(Vector2D(100.0f, 400.0f));
+	}
+	if (InputControl::GetKeyDown(KEY_INPUT_S))
+	{
+		CreateObject<Enemy3>(Vector2D(100.0f, 300.0f));
+	}
+	//スペースキーを押したら爆弾を生成
+	if (InputControl::GetKeyDown(KEY_INPUT_SPACE))
+	{
+		CreateObject<bakudan>(Vector2D(objects[0]->GetLocation()));
+	}
 }
 
 void Scene::Draw()const
