@@ -5,7 +5,9 @@
 class Enemy :public GameObject
 {
 private:
-	int animation[2];               //
+
+	int patterm;
+	int anima[2];               //
 	int animation_count;        //
 	Vector2D direction;     //  is•ûŒü
 

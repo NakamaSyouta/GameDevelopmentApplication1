@@ -1,27 +1,43 @@
 #include "Enemy.h"
+#include"../../Objects/bakudan/bakudan.h"
 #include "DxLib.h"
 
-Enemy::Enemy() :animation_count(0), direction(0.0f)
+Enemy::Enemy() :animation_count(0), direction(0.0f), patterm(GetRand(3))
 {
-	animation[0] = NULL;
-	animation[1] = NULL;
+	anima[0] = NULL;
+	anima[1] = NULL;
 }
 Enemy::~Enemy()
 {
 
 }
+
 //初期化処理
 void Enemy::Initialize()
 {
 	//画像の読み込み
-	animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
-	animation[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
+	anima[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
+	anima[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
+
+	type = ENEMY;
+	
 
 	//エラーチェック
-	if (animation[0] == -1 || animation[1] == -1)
+	if (anima[0] == -1 || anima[1] == -1)
 	{
 		throw("ハコテキの画像がありません`n");
 	}
+	//初期進行方向の設定
+	direction = Vector2D(1.0f,0.0f);
+	if (location.x <= 300.0f)
+	{
+		direction.x = 1;
+	}
+	else
+	{
+		direction.x = -1;
+	}
+
 	// 向きの設定
 	radian = 0.0f;
 
@@ -29,10 +45,24 @@ void Enemy::Initialize()
 	box_size = 64.0f;
 
 	//初期画像の設定
-	image = animation[0];
+	image = anima[0];
 
-	//初期進行方向の設定
-	direction = Vector2D(1.0f,0.0f);
+	switch (patterm)
+	{
+	case 1:
+		location.y = 400;
+		break;
+	case 2:
+		location.y = 390;
+		break;
+	case 3:
+		location.y = 380;
+		break;
+	default:
+		location.y = 370;
+		break;
+	}
+	
 }
 //更新処理
 void Enemy::Update()
@@ -60,7 +90,7 @@ void Enemy::Draw()const
 		flip_flag = TRUE;
 	}
 	//情報を基にハコテキ画像を描画する
-	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+	DrawRotaGraphF(location.x, location.y, 0.7, radian, image, TRUE, flip_flag);
 
 	//親クラスの描画処理を呼び出す
 	__super::Draw();
@@ -69,29 +99,37 @@ void Enemy::Draw()const
 void Enemy::Finalize()
 {
 	//使用した画像を解放
-	DeleteGraph(animation[0]);
-	DeleteGraph(animation[1]);
+	DeleteGraph(anima[0]);
+	DeleteGraph(anima[1]);
+	box_size = 0;
 }
 //当たり判定通知処理
 void Enemy::OnHitCollision(GameObject* hit_object)
 {
-	//当たった時の処理
-	//direction = 0.0f;
+	if(hit_object->GetType()==BAKUDAN)
+	{
+		if (dynamic_cast<bakudan*>(hit_object) != nullptr)
+		{
+		
+			direction = 0.0f;
+			box_size = 0.0;
+			Finalize();
+			deleit_fiag = true;
+		  
+		}
+	}
 }
 //移動処理
 void Enemy::Movement()
 {
-	//画面端に到達したら、進行方向を反転する
-	if (((location.x + direction.x) < box_size.x) ||
-		(640.0f - box_size.x) < (location.x + direction.x))
+	//画面端に到達したら、消える
+	
+	
+	if (location.x >= 690 || location.x <= -50)
 	{
-		direction.x *= -1.0f;
+		Finalize();
 	}
-	if (((location.y + direction.y) < box_size.y) ||
-		(480.0f - box_size.y) < (location.y + direction.y))
-	{
-		direction.y *= -1.0f;
-	}
+
 	//進行方向に向かって、位置座標を変更する
 	location += direction;
 }
@@ -108,13 +146,13 @@ void Enemy::AnimationControl()
 		animation_count = 0;
 
 		//画像の切り替え
-		if (image == animation[0])
+		if (image == anima[0])
 		{
-			image = animation[1];
+			image = anima[1];
 		}
 		else
 		{
-			image = animation[0];
+			image = anima[0];
 		}
 	}
 }

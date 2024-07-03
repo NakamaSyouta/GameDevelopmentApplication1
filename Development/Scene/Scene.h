@@ -10,7 +10,9 @@ private:
 	std::vector<GameObject*>objects;
 
 	int background;
-	
+	int Enemy_count[4];
+	int  shotFlag;
+
 
 public:
 	Scene();
@@ -20,6 +22,7 @@ public:
 	void Update();
 	void Draw()const;
 	void Finalize();
+	void SetShotFlag();
 	Player* p;
 	
 
@@ -45,10 +48,12 @@ private:
 			throw ("ゲームオブジェクトが生成できませんでした");
 
 		}
-		//初期化処理
-		new_object->Initialize();
+
 		//位置情報の設定
 		new_object->SetLocation(location);
+		//初期化処理
+		new_object->Initialize();
+	
 
 		//オブジェクトリストに追加
 		objects.push_back(new_object);

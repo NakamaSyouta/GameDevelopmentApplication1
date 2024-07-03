@@ -3,7 +3,8 @@
 class bakudan:public GameObject
 	{
 	private:
-		int animation[1];        //
+		int animation[1];        //”š’e‚Ì‰æ‘œ
+		int bakuhatu[3];         //”š”­‰æ‘œ
 		Vector2D direction;     //  is•ûŒü
 
 	public:

@@ -4,6 +4,15 @@
 
 #define D_PIVOT_CENTER  //
 
+#define BAKUDAN      (0)
+#define ENEMY        (1)
+#define ENEMY2       (2)
+#define ENEMY3       (3)
+#define HARPY        (4)
+#define PLAYER       (5)
+#define ENEMYBULLET  (6)
+
+
 //ゲームオーブジェクト規定クラス
 class GameObject
 {
@@ -14,8 +23,18 @@ protected:
 	double radian;         //向き
 	int image;             //描画する画像
 	int sound;             //再生する音源
+	int type;              //タイプ
+	
+
+
+
 
 public:
+
+   
+	bool deleit_fiag;
+	bool Deleteobj();
+
 	GameObject();
 	virtual ~GameObject();
 	virtual void Initialize();  //初期画像
@@ -34,4 +53,8 @@ public:
 
 	//当たり判定の大きさを取得する
 	Vector2D GetBoxSize()const;
+
+	int GetType();
+
+	bool Getliv();
 };

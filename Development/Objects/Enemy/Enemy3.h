@@ -3,6 +3,7 @@
 class Enemy3 :public GameObject
 {
 private:
+	int patterm;
 	int animation[2];               //
 	int animation_count;        //
 	Vector2D direction;     //  is•ûŒü

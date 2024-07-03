@@ -51,7 +51,7 @@ void Player::Update()
 void Player::Draw()const
 {
 	//プレイヤー画像の描画
-	DrawRotaGraph(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+	DrawRotaGraph(location.x, location.y, 0.8, radian, image, TRUE, flip_flag);
 	
 
 	//デバック用
@@ -73,7 +73,15 @@ void Player::Finalize()
 //当たり判定の処理
 void Player::OnHitCollision(GameObject* hit_object)
 {
-	//当たった処理
+	if (hit_object->GetType() == ENEMYBULLET)
+	{
+		if (dynamic_cast<Player*>(hit_object) != nullptr)
+		{
+
+			
+
+		}
+	}
 }
 //移動処理
 void Player::Movement()

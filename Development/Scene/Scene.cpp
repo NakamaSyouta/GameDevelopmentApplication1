@@ -3,8 +3,11 @@
 #include"../Objects/Enemy/Enemy.h"
 #include"../Objects/Enemy/Enemy2.h"
 #include"../Objects/Enemy/Enemy3.h"
+#include"../Objects/Enemy/Harpy.h"
+#include"../Objects/Enemy/EnemyBullet.h"
 #include"../Objects/bakudan/bakudan.h"
 #include"../Utility/InputConttrol.h"
+#include"../Objects/taimu.h"
 #include"DxLib.h"
 
 #define D_PIVOT_CENTER
@@ -12,6 +15,7 @@
 //コンストラクタ
 Scene::Scene() :objects()
 {
+	
 }
 
 Scene::~Scene()
@@ -24,11 +28,13 @@ void Scene::Initialize()
 {
 	//プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f,90.0f));
-
+	CreateObject<taimu>(Vector2D());
 
 
 	//背景よみこみ
 	background = LoadGraph("Resource/Images/BackGround.png");
+	
+
 
 	if (background == -1)
 	{
@@ -36,6 +42,9 @@ void Scene::Initialize()
 	}
 
 }
+
+
+
 //更新処理
 void Scene::Update()
 {
@@ -44,6 +53,7 @@ void Scene::Update()
 	{
 		obj->Update();
 	}
+
 
 
 	//オブジェクト同士の当たり判定
@@ -55,24 +65,84 @@ void Scene::Update()
 			HitCheckObject(objects[i], objects[j]);
 		}
 	}
-	//Zキーを押したら、敵を生成する
-	if (InputControl::GetKeyDown(KEY_INPUT_Z))
+	for (int i = 0;i <= 3;i++)
 	{
-		CreateObject<Enemy>(Vector2D(100.0f, 400.0f));
+		Enemy_count[i]++;
 	}
-	if (InputControl::GetKeyDown(KEY_INPUT_A))
+
+	//敵を生成する
+	if(Enemy_count[0]>=150)
 	{
-		CreateObject<Enemy2>(Vector2D(100.0f, 400.0f));
+		Enemy_count[0] = 0;
+
+		if (GetRand(1) == 1)
+		{
+			CreateObject<Enemy>(Vector2D(630.0f, 0.0f));
+		}
+		else
+			CreateObject<Enemy>(Vector2D(1.0f, 0.0f));
 	}
-	if (InputControl::GetKeyDown(KEY_INPUT_S))
+	if (Enemy_count[1]>=500)
 	{
-		CreateObject<Enemy3>(Vector2D(100.0f, 300.0f));
+		Enemy_count[1] = 1;
+		//CreateObject<Enemy2>(Vector2D(100.0f, 400.0f));
+
+		if (GetRand(1) == 1)
+		{
+			CreateObject<Enemy2>(Vector2D(630.0f, 0.0f));
+		}
+		else
+			CreateObject<Enemy2>(Vector2D(1.0f, 0.0f));
 	}
+	if (Enemy_count[2] >= 500)
+	{
+		Enemy_count[2] = 2;
+
+		if (GetRand(1) == 1)
+		{
+			CreateObject<Enemy3>(Vector2D(630.0f, 0.0f));
+		}
+		else
+			CreateObject<Enemy3>(Vector2D(1.0f, 0.0f));
+	}
+	if (Enemy_count[3] >= 500)
+	{
+		Enemy_count[3] = 3;
+		if (GetRand(1) == 1)
+		{
+			CreateObject<Harpy>(Vector2D(630.0f, 0.0f));
+		}
+		else
+			CreateObject<Harpy>(Vector2D(1.0f, 0.0f));
+	}
+
 	//スペースキーを押したら爆弾を生成
 	if (InputControl::GetKeyDown(KEY_INPUT_SPACE))
 	{
 		CreateObject<bakudan>(Vector2D(objects[0]->GetLocation()));
 	}
+
+
+
+	for (int i = 0;i<objects.size();i++)
+	{
+		if (objects[i]->Deleteobj() == true)
+		{
+			objects.erase(objects.begin() + i--);
+		}
+	}
+	for (int i = 0 ; i < objects.size();i++)
+	{
+		if (dynamic_cast<Enemy*>(objects[i]) != nullptr)
+		{
+			if (InputControl::GetKeyDown(KEY_INPUT_B))
+			{
+				CreateObject<EnemyBullet>(Vector2D(objects[i]->GetLocation()));
+			}
+		}
+	}
+	
+
 }
 
 void Scene::Draw()const
